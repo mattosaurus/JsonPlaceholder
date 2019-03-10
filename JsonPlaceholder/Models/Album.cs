@@ -1,5 +1,4 @@
-﻿using JsonPlaceholder.AppCode;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +19,5 @@ namespace JsonPlaceholder.Models
 
         [JsonProperty("photos")]
         public List<Photo> Photos { get; set; }
-
-        public List<Photo> GetPhotos()
-        {
-            return Common.GetPhotosByAlbumId(Id).Result;
-        }
     }
 }

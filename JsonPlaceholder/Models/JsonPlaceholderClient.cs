@@ -1,5 +1,4 @@
-﻿using JsonPlaceholder.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +6,24 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonPlaceholder.AppCode
+namespace JsonPlaceholder.Models
 {
-    public static class Common
+    public interface IJsonPlaceholderClient
     {
-        public static async Task<List<Album>> GetAlbums()
+        Task<List<Album>> GetAlbums();
+
+        Task<Album> GetAlbumById(int id);
+
+        Task<List<Photo>> GetPhotos();
+
+        Task<Photo> GetPhotoById(int id);
+
+        Task<List<Photo>> GetPhotosByAlbumId(int id);
+    }
+
+    public class JsonPlaceholderClient
+    {
+        public async Task<List<Album>> GetAlbums()
         {
             List<Album> albums = new List<Album>();
 
@@ -20,7 +32,7 @@ namespace JsonPlaceholder.AppCode
             try
             {
                 HttpResponseMessage response = await client.GetAsync("http://jsonplaceholder.typicode.com/albums");
-                
+
                 if (response.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
@@ -40,7 +52,7 @@ namespace JsonPlaceholder.AppCode
             return albums;
         }
 
-        public static async Task<Album> GetAlbumById(int id)
+        public async Task<Album> GetAlbumById(int id)
         {
             Album album = new Album();
 
@@ -69,7 +81,7 @@ namespace JsonPlaceholder.AppCode
             return album;
         }
 
-        public static async Task<List<Photo>> GetPhotos()
+        public async Task<List<Photo>> GetPhotos()
         {
             List<Photo> photos = new List<Photo>();
 
@@ -98,7 +110,7 @@ namespace JsonPlaceholder.AppCode
             return photos;
         }
 
-        public static async Task<Photo> GetPhotoById(int id)
+        public async Task<Photo> GetPhotoById(int id)
         {
             Photo photo = new Photo();
 
@@ -127,7 +139,7 @@ namespace JsonPlaceholder.AppCode
             return photo;
         }
 
-        public static async Task<List<Photo>> GetPhotosByAlbumId(int id)
+        public async Task<List<Photo>> GetPhotosByAlbumId(int id)
         {
             List<Photo> photos = new List<Photo>();
 

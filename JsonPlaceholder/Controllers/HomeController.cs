@@ -5,15 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JsonPlaceholder.Models;
-using JsonPlaceholder.AppCode;
+using JsonPlaceholder.Services;
 
 namespace JsonPlaceholder.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IJsonPlaceholderService _jsonPlaceholderService;
+
+        public HomeController(IJsonPlaceholderService jsonPlaceholderService)
+        {
+            _jsonPlaceholderService = jsonPlaceholderService;
+        }
+
         public async Task<IActionResult> Album(int? id)
         {
-            List<Album> albums = await Common.GetAlbums();
+            List<Album> albums = await _jsonPlaceholderService.GetAlbums();
 
             return View(albums);
         }
@@ -26,18 +33,18 @@ namespace JsonPlaceholder.Controllers
             if (albumId == null || albumId == 0)
             {
                 // Get all photos
-                photos = await Common.GetPhotos();
+                photos = await _jsonPlaceholderService.GetPhotos();
 
                 //Get all albums
-                albums = await Common.GetAlbums();
+                albums = await _jsonPlaceholderService.GetAlbums();
             }
             else
             {
                 // Get photos for desired album
-                photos = await Common.GetPhotosByAlbumId((int)albumId);
+                photos = await _jsonPlaceholderService.GetPhotosByAlbumId((int)albumId);
 
                 // Get desired album
-                albums = new List<Album>() { await Common.GetAlbumById((int)albumId) };
+                albums = new List<Album>() { await _jsonPlaceholderService.GetAlbumById((int)albumId) };
             }
 
             // Merge data
