@@ -9,7 +9,7 @@ namespace JsonPlaceholder.Models
     public class Photo
     {
         [JsonProperty("albumId")]
-        public int UserId { get; set; }
+        public int AlbumId { get; set; }
 
         [JsonProperty("id")]
         public int Id { get; set; }
