@@ -5,31 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JsonPlaceholder.Models;
+using JsonPlaceholder.AppCode;
 
 namespace JsonPlaceholder.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Album(int? id)
         {
-            return View();
+            List<Album> albums = await Common.GetAlbum();
+
+            return View(albums);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult Photo(int? id)
         {
             return View();
         }
