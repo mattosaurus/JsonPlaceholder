@@ -1,7 +1,49 @@
-﻿
+﻿@using JsonPlaceholder.Models
+
+@section Head  {
+    <link href="~/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+
 @{
     ViewData["Title"] = "Photo";
 }
 
-<h2>Photo</h2>
+@model List<Album>
 
+
+<div class="row"></div>
+
+<h2>Photos</h2>
+
+<div class="row"></div>
+
+<div class="row">
+    <div class="col">
+        <table id="photoTable" class="table">
+            <thead>
+                <tr>
+                    <th>Photo Title</th>
+                    <th>Album Title</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Album album in Model)
+                {
+                    @await Component.InvokeAsync("PhotoDetailComponent", new { album = album })
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#photoTable').DataTable();
+        });
+    </script>
+})
+}

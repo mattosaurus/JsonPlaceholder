@@ -1,0 +1,19 @@
+﻿@using JsonPlaceholder.Models
+
+@model Album
+
+@foreach (Photo photo in Model.Photos)
+{
+    <tr>
+        <td>
+            @photo.Title
+        </td>
+        <td>
+            @Model.Title
+        </td>
+        <td>
+            @photo.ThumbnailUrl
+        </td>
+    </tr>
+}
+
