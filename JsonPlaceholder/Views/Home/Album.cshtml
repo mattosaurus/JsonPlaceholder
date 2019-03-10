@@ -1,15 +1,25 @@
-﻿
+﻿@using JsonPlaceholder.Models
+
+@section Head  {
+    <link href="~/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+
 @{
     ViewData["Title"] = "Album";
 }
 
-<h2>Album</h2>
+@model List<Album>
+
+
+<div class="row"></div>
+
+<h2>Albums</h2>
 
 <div class="row"></div>
 
 <div class="row">
     <div class="col">
-        <table>
+        <table id="albumTable" class="table table-hover table-clickable">
             <thead>
                 <tr>
                     <th>User ID</th>
@@ -18,8 +28,27 @@
                 </tr>
             </thead>
             <tbody>
-
+                @foreach (Album album in Model)
+                {
+                    @await Component.InvokeAsync("AlbumDetailComponent", new { album = album })
+                }
             </tbody>
         </table>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#albumTable').DataTable();
+        });
+
+        $('#albumTable').on('click', 'tbody tr', function () {
+            var albumId = $(this).data('album-id');
+            window.location.href = window.location.origin + '/Home/Photo/' + albumId;
+        });
+    </script>
+    })
+}

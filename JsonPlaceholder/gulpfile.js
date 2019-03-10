@@ -39,11 +39,11 @@ var deps = {
         "dist/**/*": ""
     },
     "datatables.net": {
-        "js/*": ""
+        "js/*": "js"
     },
     "datatables.net-bs4": {
-        "css/*": "",
-        "js/*": ""
+        "css/*": "css",
+        "js/*": "js"
     },
     "jquery": {
         "dist/*": ""
