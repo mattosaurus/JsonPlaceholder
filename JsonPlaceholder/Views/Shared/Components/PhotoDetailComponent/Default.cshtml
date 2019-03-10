@@ -12,7 +12,11 @@
             @Model.Title
         </td>
         <td>
-            @photo.ThumbnailUrl
+            <div class="card" style="width: 18rem;">
+                <a href="@photo.Url">
+                    <img src="@photo.ThumbnailUrl" class="card-img-top" alt="@photo.Title">
+                </a>
+            </div>
         </td>
     </tr>
 }

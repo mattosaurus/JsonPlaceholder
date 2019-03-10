@@ -11,11 +11,19 @@
 @model List<Album>
 
 
-<div class="row"></div>
+<div class="row">&nbsp;</div>
 
 <h2>Albums</h2>
 
-<div class="row"></div>
+<div class="row">&nbsp;</div>
+
+<div class="row">
+    <div class="col">
+        <a href="@Url.Action("Photo", "Home")" class="btn btn-primary">View All Photos</a>
+    </div>
+</div>
+
+<div class="row">&nbsp;</div>
 
 <div class="row">
     <div class="col">
@@ -47,8 +55,8 @@
 
         $('#albumTable').on('click', 'tbody tr', function () {
             var albumId = $(this).data('album-id');
-            window.location.href = window.location.origin + '/Home/Photo/?albumId=' + albumId;
+            window.location.href = '@Url.Action("Photo", "Home")?albumId=' + albumId;
+            //window.location.href = window.location.origin + '/Home/Photo/?albumId=' + albumId;
         });
     </script>
-    })
 }
