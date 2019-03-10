@@ -38,6 +38,9 @@ var deps = {
     "bootstrap": {
         "dist/**/*": ""
     },
+    "datatables.net": {
+        "js/*": ""
+    },
     "datatables.net-bs4": {
         "css/*": "",
         "js/*": ""
