@@ -33,6 +33,7 @@ namespace JsonPlaceholder
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddScoped<IJsonPlaceholderClient, JsonPlaceholderClient>();
             services.AddScoped<IJsonPlaceholderService, JsonPlaceholderService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

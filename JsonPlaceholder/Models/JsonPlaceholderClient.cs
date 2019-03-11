@@ -21,8 +21,13 @@ namespace JsonPlaceholder.Models
         Task<List<Photo>> GetPhotosByAlbumId(int id);
     }
 
-    public class JsonPlaceholderClient
+    public class JsonPlaceholderClient : IJsonPlaceholderClient
     {
+        public JsonPlaceholderClient()
+        {
+
+        }
+
         public async Task<List<Album>> GetAlbums()
         {
             List<Album> albums = new List<Album>();
