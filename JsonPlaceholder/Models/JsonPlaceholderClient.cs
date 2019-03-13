@@ -21,154 +21,54 @@ namespace JsonPlaceholder.Models
         Task<List<Photo>> GetPhotosByAlbumId(int id);
     }
 
-    public class JsonPlaceholderClient : IJsonPlaceholderClient
+    public class JsonPlaceholderClient : HttpClient, IJsonPlaceholderClient
     {
         public JsonPlaceholderClient()
         {
-
+            this.BaseAddress = new Uri("http://jsonplaceholder.typicode.com/");
         }
 
         public async Task<List<Album>> GetAlbums()
         {
-            List<Album> albums = new List<Album>();
+            HttpResponseMessage response = await this.GetAsync("albums");
 
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync("http://jsonplaceholder.typicode.com/albums");
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
-                }
-
-                byte[] responseByteArray = await response.Content.ReadAsByteArrayAsync();
-                string responseString = Encoding.UTF8.GetString(responseByteArray, 0, responseByteArray.Length);
-
-                albums = JsonConvert.DeserializeObject<List<Album>>(responseString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            List<Album> albums = await response.Content.ReadAsAsync<List<Album>>();
 
             return albums;
         }
 
         public async Task<Album> GetAlbumById(int id)
         {
-            Album album = new Album();
+            HttpResponseMessage response = await this.GetAsync(String.Format("albums/{0}", id.ToString()));
 
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(String.Format("http://jsonplaceholder.typicode.com/albums/{0}", id.ToString()));
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
-                }
-
-                byte[] responseByteArray = await response.Content.ReadAsByteArrayAsync();
-                string responseString = Encoding.UTF8.GetString(responseByteArray, 0, responseByteArray.Length);
-
-                album = JsonConvert.DeserializeObject<Album>(responseString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            Album album = await response.Content.ReadAsAsync<Album>();
 
             return album;
         }
 
         public async Task<List<Photo>> GetPhotos()
         {
-            List<Photo> photos = new List<Photo>();
+            HttpResponseMessage response = await this.GetAsync("photos");
 
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync("http://jsonplaceholder.typicode.com/photos");
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
-                }
-
-                byte[] responseByteArray = await response.Content.ReadAsByteArrayAsync();
-                string responseString = Encoding.UTF8.GetString(responseByteArray, 0, responseByteArray.Length);
-
-                photos = JsonConvert.DeserializeObject<List<Photo>>(responseString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            List<Photo> photos = await response.Content.ReadAsAsync<List<Photo>>();
 
             return photos;
         }
 
         public async Task<Photo> GetPhotoById(int id)
         {
-            Photo photo = new Photo();
+            HttpResponseMessage response = await this.GetAsync(String.Format("photos/{0}", id.ToString()));
 
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(String.Format("https://jsonplaceholder.typicode.com/photos/{0}", id.ToString()));
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
-                }
-
-                byte[] responseByteArray = await response.Content.ReadAsByteArrayAsync();
-                string responseString = Encoding.UTF8.GetString(responseByteArray, 0, responseByteArray.Length);
-
-                photo = JsonConvert.DeserializeObject<Photo>(responseString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            Photo photo = await response.Content.ReadAsAsync<Photo>();
 
             return photo;
         }
 
         public async Task<List<Photo>> GetPhotosByAlbumId(int id)
         {
-            List<Photo> photos = new List<Photo>();
+            HttpResponseMessage response = await this.GetAsync(String.Format("photos?albumId={0}", id.ToString()));
 
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(String.Format("https://jsonplaceholder.typicode.com/photos?albumId={0}", id.ToString()));
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    string message = String.Format("GET failed. Received HTTP {0}", response.StatusCode);
-                    throw new ApplicationException(message);
-                }
-
-                byte[] responseByteArray = await response.Content.ReadAsByteArrayAsync();
-                string responseString = Encoding.UTF8.GetString(responseByteArray, 0, responseByteArray.Length);
-
-                photos = JsonConvert.DeserializeObject<List<Photo>>(responseString);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            List<Photo> photos = await response.Content.ReadAsAsync<List<Photo>>();
 
             return photos;
         }
